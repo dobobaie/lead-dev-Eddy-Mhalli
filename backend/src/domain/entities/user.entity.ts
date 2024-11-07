@@ -10,13 +10,12 @@ export interface User {
 export const createUser = (
   user: Partial<User> & {
     name: User["name"];
-    sessionId: User["sessionId"];
   },
 ): User => ({
   id: user.id ?? randomUUID(),
 
   name: user.name,
-  sessionId: user.sessionId,
+  sessionId: user.sessionId ?? randomUUID(),
 
   createdAt: user.createdAt ?? new Date(),
 });

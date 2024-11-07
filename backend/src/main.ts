@@ -33,7 +33,6 @@ const startServer = async () => {
 
   // Initialize firebase
   admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
-  // : admin.credential.applicationDefault()
 
   try {
     const port = config.application.server.port;
