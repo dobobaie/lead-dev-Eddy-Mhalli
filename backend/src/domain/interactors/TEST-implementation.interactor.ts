@@ -7,6 +7,11 @@ export class TESTImplementationInteractor {
   constructor(private readonly grogConnector: GrogConnector) {}
 
   async execute(): Promise<void> {
-    this.grogConnector.displayModels();
+    await this.grogConnector.getAssistantReply([
+      {
+        role: "system",
+        content: "you are a helpful assistant.",
+      },
+    ]);
   }
 }

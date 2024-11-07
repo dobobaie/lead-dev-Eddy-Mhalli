@@ -3,7 +3,7 @@ import { randomUUID } from "crypto";
 export interface Message {
   id: string;
   messengerId: string;
-  sender: "user" | "bot";
+  sender: "user" | "assistant";
   createdAt: Date;
 }
 
