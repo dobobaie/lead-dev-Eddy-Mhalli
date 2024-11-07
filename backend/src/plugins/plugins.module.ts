@@ -1,6 +1,8 @@
-import { Module } from "@nestjs/common";
+import { Module } from '@nestjs/common';
 
-const modules = [];
+import { Logger } from './logger';
+
+const modules = [Logger];
 
 @Module({
   providers: modules,
