@@ -5,7 +5,6 @@ export interface User {
   name: string;
   sessionId: string;
   createdAt: Date;
-  updatedAt: Date;
 }
 
 export const createUser = (
@@ -20,5 +19,4 @@ export const createUser = (
   sessionId: user.sessionId,
 
   createdAt: user.createdAt ?? new Date(),
-  updatedAt: user.updatedAt ?? new Date(),
 });

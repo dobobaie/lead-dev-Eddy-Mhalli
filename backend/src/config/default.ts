@@ -39,6 +39,9 @@ const getProcessEnv = () => {
 
       // Connectors
       LLM_GROG_API_KEY: str(),
+
+      // Firebase
+      FIREBASE_CREDENTIALS_PATH: str(),
     },
     {
       reporter: ({ errors }) => {
@@ -88,6 +91,11 @@ export const loadConfig = (processEnv: ProcessEnv) => {
         api: {
           key: processEnv.LLM_GROG_API_KEY,
         },
+      },
+    },
+    firebase: {
+      credentials: {
+        path: processEnv.FIREBASE_CREDENTIALS_PATH,
       },
     },
   };
