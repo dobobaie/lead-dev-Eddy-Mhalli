@@ -1,11 +1,14 @@
-import { Body, Controller, Post, Req, Res, UseGuards } from "@nestjs/common";
+import { Body, Controller, Param, Post, Req, Res, UseGuards } from "@nestjs/common";
 import { Request, Response } from "express";
 
 import { ApiRoute } from "../../decorators/api-route.decorator";
 import { UserSessionGuard } from "../../guards/user-session.guard";
 
 import { SendMessageToAssistantUseCase } from "../../../../domain/use-cases/send-message-to-assistant.use-case";
-import { MessengerSendMessageToAssistantBodyDTO } from "../../dtos/messenger-send-message-to-assistant.dto";
+import {
+  MessengerSendMessageToAssistantBodyDTO,
+  MessengerSendMessageToAssistantParamDTO,
+} from "../../dtos/messenger-send-message-to-assistant.dto";
 
 @UseGuards(UserSessionGuard)
 @Controller("messenger")
@@ -20,10 +23,11 @@ export class MessengerSendMessageToAssistantController {
     contentType: "text/event-stream",
     responseType: "string",
   })
-  @Post("create")
-  async create(
+  @Post(":messengerId/send-message")
+  async sendMessage(
     @Req() request: Request,
     @Res() response: Response,
+    @Param() params: MessengerSendMessageToAssistantParamDTO,
     @Body() body: MessengerSendMessageToAssistantBodyDTO,
   ): Promise<void> {
     response.setHeader("Content-Type", "text/event-stream");
@@ -33,7 +37,7 @@ export class MessengerSendMessageToAssistantController {
     const userSessionId = request.headers[UserSessionGuard.field] as string;
     const stream = await this.sendMessageToAssistant.execute({
       userSessionId,
-      messengerId: body.messengerId,
+      messengerId: params.messengerId,
       message: body.message,
     });
 

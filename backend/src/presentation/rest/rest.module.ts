@@ -7,6 +7,8 @@ import { DomainModule } from "../../domain/domain.module";
 import { AppGetHealthController } from "./controllers/app/get-health.controller";
 import { UserCreateUserController } from "./controllers/user/create-user.controller";
 import { MessengerCreateConversationController } from "./controllers/messenger/create-conversation.controller";
+import { MessengerSendMessageToAssistantController } from "./controllers/messenger/send-message-to-assistant.controller";
+import { MessengerGetMessagesController } from "./controllers/messenger/get-messages.controller";
 
 @Module({
   imports: [PluginsModule, InfrastructureModule, DomainModule],
@@ -14,6 +16,8 @@ import { MessengerCreateConversationController } from "./controllers/messenger/c
     AppGetHealthController,
     UserCreateUserController,
     MessengerCreateConversationController,
+    MessengerSendMessageToAssistantController,
+    MessengerGetMessagesController,
   ],
 })
 export class RestModule {}
