@@ -20,7 +20,7 @@ export class MessengerSendMessageToAssistantController {
   @ApiRoute({
     summary: "Create a new conversation",
     body: MessengerSendMessageToAssistantBodyDTO,
-    contentType: "text/event-stream",
+    responseContentType: "text/event-stream",
     responseType: "string",
   })
   @Post(":messengerId/send-message")

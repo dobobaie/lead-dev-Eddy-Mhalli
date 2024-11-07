@@ -34,8 +34,8 @@ function initializeLogger(app: NestExpressApplication) {
 function initializeCors(app: NestExpressApplication) {
   app.enableCors({
     credentials: true,
-    preflightContinue: true,
-    origin: config.application.server.cors.allowedDomains,
+    preflightContinue: false,
+    origin: "*",
     allowedHeaders: config.application.server.cors.allowedHeaders,
     methods: config.application.server.cors.allowedHttpMethod,
   });

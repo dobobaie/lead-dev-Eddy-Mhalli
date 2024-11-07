@@ -31,7 +31,13 @@ const getProcessEnv = () => {
         default: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
       }),
       APPLICATION_SERVER_CORS_ALLOWED_HEADERS: json<string[]>({
-        default: ["Content-Type", "origin", "cookie"],
+        default: [
+          "Content-Type",
+          "Authorization",
+          "origin",
+          "cookie",
+          "x-session-id",
+        ],
       }),
       APPLICATION_SERVICE_NAME: str<ApplicationService>({
         choices: applicationServices,
@@ -80,7 +86,7 @@ export const loadConfig = (processEnv: ProcessEnv) => {
       server: {
         port: processEnv.APPLICATION_SERVER_PORT,
         cors: {
-          allowedDomains: undefined,
+          allowedDomains: "*",
           allowedHttpMethod: processEnv.APPLICATION_SERVER_CORS_ALLOWED_HTTP_METHOD,
           allowedHeaders: processEnv.APPLICATION_SERVER_CORS_ALLOWED_HEADERS,
         },

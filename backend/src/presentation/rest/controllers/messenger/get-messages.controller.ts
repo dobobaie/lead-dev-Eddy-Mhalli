@@ -18,7 +18,7 @@ export class MessengerGetMessagesController {
   ) {}
 
   @ApiRoute({
-    summary: "Create a new conversation",
+    summary: "Get every messages from a messenger",
     response: MessengerGetMessagesResponseDTO,
   })
   @Get(":messengerId/messages")

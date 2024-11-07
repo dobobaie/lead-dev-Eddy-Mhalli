@@ -9,6 +9,7 @@ import { UserCreateUserController } from "./controllers/user/create-user.control
 import { MessengerCreateConversationController } from "./controllers/messenger/create-conversation.controller";
 import { MessengerSendMessageToAssistantController } from "./controllers/messenger/send-message-to-assistant.controller";
 import { MessengerGetMessagesController } from "./controllers/messenger/get-messages.controller";
+import { MessengerGetMessengersController } from "./controllers/messenger/get-messengers.controller";
 
 @Module({
   imports: [PluginsModule, InfrastructureModule, DomainModule],
@@ -18,6 +19,7 @@ import { MessengerGetMessagesController } from "./controllers/messenger/get-mess
     MessengerCreateConversationController,
     MessengerSendMessageToAssistantController,
     MessengerGetMessagesController,
+    MessengerGetMessengersController,
   ],
 })
 export class RestModule {}

@@ -49,6 +49,22 @@ export class MessengerRepository {
       .then((documents) => documents.shift() ?? null);
   }
 
+  public async findAllByUserSessionId(userSessionId: string): Promise<Messenger[]> {
+    return admin
+      .firestore()
+      .collection(this.collection)
+      .where("userSessionId", "==", userSessionId)
+      .get()
+      .then((snapshot) =>
+        snapshot.docs.map((document) =>
+          this.modelToEntity({
+            id: document.id,
+            ...document.data(),
+          }),
+        ),
+      );
+  }
+
   private modelToEntity(model: ModelRepository<Messenger>): Messenger {
     return {
       id: model.id,

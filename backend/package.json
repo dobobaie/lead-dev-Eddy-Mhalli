@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "build": "nest build",
+    "codegen": "yarn codegen:swagger",
+    "codegen:swagger": "npx openapi-generator-cli generate -i swagger.json --generator-name typescript-fetch -o generated/sdk-api",
     "dev": "cross-env NODE_ENV=development yarn",
     "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
     "start": "nest start",
@@ -32,6 +34,7 @@
   "devDependencies": {
     "@nestjs/cli": "10.3.2",
     "@nestjs/testing": "10.3.7",
+    "@openapitools/openapi-generator-cli": "2.15.3",
     "@types/express": "4.17.21",
     "@types/lodash": "4.17.4",
     "@types/multer": "1.4.11",

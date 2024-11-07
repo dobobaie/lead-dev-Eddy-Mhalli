@@ -67,9 +67,8 @@ export class ControllerLoggingInterceptor implements NestInterceptor {
       }),
       catchError((originError) => {
         const stack = originError.stack;
-
         this.logger.error(
-          `HTTP Error ${method} ${originalUrl} - ${res.statusCode}\n${stack}`,
+          `HTTP Error ${method} ${originalUrl} - ${originError.status ?? res.statusCode}\n${stack}`,
           {
             type: "error",
             method,

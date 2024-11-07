@@ -8,6 +8,7 @@ export function ApiRoute(params: {
   body?: any;
   errors?: any[];
   response?: any;
+  responseContentType?: string;
   responseType?: string;
 }) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -29,9 +30,9 @@ export function ApiRoute(params: {
     ApiResponse({
       status: 200,
       type: params.response,
-      content: params.contentType
+      content: params.responseContentType
         ? {
-            [params.contentType]: {
+            [params.responseContentType]: {
               schema: {
                 type: params.responseType,
               },

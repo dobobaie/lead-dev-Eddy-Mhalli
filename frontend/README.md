@@ -44,28 +44,26 @@ yarn install
 
 ## 🏃 Run the Project Locally
 
-### Step 1: Environment variables
+### Step 1: Initialize the Application
+
+Be sure every SDKS is updated at this following path:
+
+```sh
+cd ./src/sdks
+```
+
+If not, you probably have to generate the SDK from the backend and move the files there.
+
+### Step 2: Environment variables
 
 Make sure to move the `.env.example` to `.env` and to fill every parameters
 
-### Step 2: Start the Application
+### Step 3: Start the Application
 
 Run the following command to launch the public API:
 
 ```sh
-yarn dev start:public-api
-```
-
----
-
-## 🔧 Generate SDK
-
-### SDK Client
-
-After starting the application for the first time, the `swagger.json` file will be generated. You can then generate the SDK client by running:
-
-```sh
-yarn codegen:public-api
+yarn dev start:chatbot-messenger
 ```
 
 ---

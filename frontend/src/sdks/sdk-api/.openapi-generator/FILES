@@ -1,0 +1,14 @@
+apis/DefaultApi.ts
+apis/index.ts
+index.ts
+models/AppGetHealthResponseDTO.ts
+models/MessageDTO.ts
+models/MessengerCreateConversationResponseDTO.ts
+models/MessengerDTO.ts
+models/MessengerGetMessagesResponseDTO.ts
+models/MessengerGetMessengersResponseDTO.ts
+models/MessengerSendMessageToAssistantBodyDTO.ts
+models/UserCreateUserBodyDTO.ts
+models/UserCreateUserResponseDTO.ts
+models/index.ts
+runtime.ts

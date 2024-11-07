@@ -7,11 +7,13 @@ import { CreateUserUseCase } from "./use-cases/create-user.use-case";
 import { CreateConversationUseCase } from "./use-cases/create-conversation.use-case";
 import { SendMessageToAssistantUseCase } from "./use-cases/send-message-to-assistant.use-case";
 import { GetMessagesByMessengerUseCase } from "./use-cases/get-messages-by-messenger.use-case";
+import { GetMessengerByUserSessionUseCase } from "./use-cases/get-messengers-by-user-session.use-case";
 
 const modules = [
   CreateUserUseCase,
   CreateConversationUseCase,
   GetMessagesByMessengerUseCase,
+  GetMessengerByUserSessionUseCase,
   SendMessageToAssistantUseCase,
 ];
 

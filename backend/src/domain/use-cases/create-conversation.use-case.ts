@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { randomUUID } from "crypto";
 
 import { MessengerRepository } from "../../infrastructure/repositories/messenger.repository";
 import { Messenger, createMessenger } from "../entities/messenger.entity";
@@ -17,7 +18,7 @@ export class CreateConversationUseCase {
     // NOTE: for the label with can let choose the user, or increment the number of conversations, or even take a part of the message
     const messenger = createMessenger({
       userSessionId: input.userSessionId,
-      label: "Chat #x...",
+      label: "Chat #" + randomUUID().split("-").shift(),
     });
     await this.messengerRepository.create(messenger);
     return messenger;

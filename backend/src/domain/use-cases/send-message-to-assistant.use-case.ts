@@ -3,8 +3,9 @@ import { Injectable } from "@nestjs/common";
 import { GrogConnector } from "../../infrastructure/connectors/grog";
 import { Messenger } from "../entities/messenger.entity";
 import { User } from "../entities/user.entity";
-import { Message } from "../entities/message.entity";
+import { Message, createMessage } from "../entities/message.entity";
 import { GetMessagesByMessengerUseCase } from "./get-messages-by-messenger.use-case";
+import { MessageRepository } from "../../infrastructure/repositories/message.repository";
 
 type SendMessageToAssistantInput = {
   userSessionId: User["sessionId"];
@@ -17,6 +18,7 @@ type SendMessageToAssistantOutput = ReadableStream;
 export class SendMessageToAssistantUseCase {
   constructor(
     private readonly getMessagesByMessengerUseCase: GetMessagesByMessengerUseCase,
+    private readonly messageRepository: MessageRepository,
     private readonly grogConnector: GrogConnector,
   ) {}
 
@@ -36,21 +38,45 @@ export class SendMessageToAssistantUseCase {
       },
     ]);
 
-    // ---
-    const reader = stream.getReader();
-    reader!.read().then(function pump({ done, value }) {
-      if (done) {
-        return;
-      }
+    // NOTE: prepare to persist messages after stream is terminated
+    const persistMessages = async (assistantMessage: string) => {
+      await this.persistMessage(
+        createMessage({
+          messengerId: input.messengerId,
+          message: input.message,
+          sender: "user",
+        }),
+      );
+      await this.persistMessage(
+        createMessage({
+          messengerId: input.messengerId,
+          message: assistantMessage,
+          sender: "assistant",
+        }),
+      );
+    };
 
-      const message = JSON.parse(new TextDecoder().decode(value));
-      console.log(message.choices.map(({ delta }) => delta.content).join(""));
-      return reader!.read().then(pump);
-    });
-    // ---
+    // NOTE: we're waiting the stream is finished to close the stream
+    let fullMessage = "";
+    const transformStream = stream.pipeThrough(
+      new TransformStream({
+        transform(chunk, controller) {
+          const message = JSON.parse(new TextDecoder().decode(chunk));
+          const value = message.choices.map(({ delta }) => delta.content).join("");
+          controller.enqueue(value);
+          fullMessage += value;
+        },
+        async flush(controller) {
+          await persistMessages(fullMessage);
+          controller.terminate();
+        },
+      }),
+    );
 
-    // wait bot answer before save user message
+    return transformStream;
+  }
 
-    return stream;
+  private async persistMessage(message: Message): Promise<void> {
+    await this.messageRepository.create(message);
   }
 }

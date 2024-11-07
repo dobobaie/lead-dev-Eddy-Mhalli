@@ -1,0 +1,39 @@
+{
+  "name": "chatbot-messenger",
+  "version": "1.0.0",
+  "main": "src/index.tsx",
+  "scripts": {
+    "build": "react-scripts build",
+    "dev": "cross-env NODE_ENV=development yarn",
+    "start": "react-scripts start",
+    "start:chatbot-messenger": "cross-env REACT_APP_APPLICATION_SERVICE_NAME=chatbot-messenger react-scripts start",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "envalid": "8.0.0",
+    "react": "18.0.0",
+    "react-dom": "18.0.0",
+    "react-scripts": "5.0.1",
+    "typescript": "4.9.0"
+  },
+  "devDependencies": {
+    "@types/jest": "28.0.0",
+    "@types/node": "18.0.0",
+    "cross-env": "7.0.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
