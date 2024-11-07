@@ -36,6 +36,9 @@ const getProcessEnv = () => {
       APPLICATION_SERVICE_NAME: str<ApplicationService>({
         choices: applicationServices,
       }),
+
+      // Connectors
+      LLM_GROG_API_KEY: str(),
     },
     {
       reporter: ({ errors }) => {
@@ -77,6 +80,13 @@ export const loadConfig = (processEnv: ProcessEnv) => {
           allowedDomains: undefined,
           allowedHttpMethod: processEnv.APPLICATION_SERVER_CORS_ALLOWED_HTTP_METHOD,
           allowedHeaders: processEnv.APPLICATION_SERVER_CORS_ALLOWED_HEADERS,
+        },
+      },
+    },
+    llm: {
+      grog: {
+        api: {
+          key: processEnv.LLM_GROG_API_KEY,
         },
       },
     },
