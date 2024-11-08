@@ -28,11 +28,13 @@ export class MessengerGetMessengersController {
     });
 
     return {
-      messengers: messengers.map((messenger) => ({
-        id: messenger.id,
-        label: messenger.label,
-        createdAt: messenger.createdAt,
-      })),
+      messengers: messengers
+        .map((messenger) => ({
+          id: messenger.id,
+          label: messenger.label,
+          createdAt: messenger.createdAt,
+        }))
+        .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime()),
     };
   }
 }

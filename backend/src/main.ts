@@ -26,12 +26,12 @@ const startServer = async () => {
   logger.info(`Service boot: ${appName} - Instance Starting...`);
   logger.info(`Service boot: Using ${environment} environment.`);
 
-  // Initialize application
+  // NOTE: Initialize application
   let app = await initExpress({ module: AppModule });
   app = initApplication(app);
   initDocumentation(app);
 
-  // Initialize firebase
+  // NOTE: Initialize firebase
   admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
 
   try {

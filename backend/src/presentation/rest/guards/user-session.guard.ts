@@ -11,7 +11,7 @@ export class UserSessionGuard implements CanActivate {
   }
 
   isValidSession(sessionId: string) {
-    // NOTE: for the exercise we're gonna say it's valid
+    // NOTE: for the exercise let's say it's valid
     return !!sessionId;
   }
 }

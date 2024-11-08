@@ -17,6 +17,7 @@ export class GrogConnector {
   ): Promise<ReadableStream> {
     const chat = await this.sdk.chat.completions.create({
       messages,
+      // TODO: model should be in ENV
       model: "llama3-8b-8192",
       stream: true,
     });

@@ -20,4 +20,14 @@ export class Repository {
     const userSessionIdStorage = localStorage.getItem("userSessionId");
     return userSessionIdStorage || undefined;
   }
+
+  protected getHeaders(
+    customHeader: Record<string, string> = {}
+  ): Record<string, string> {
+    const userSessionIdStorage = localStorage.getItem("userSessionId");
+    return Object.assign(
+      { "x-session-id": this.getAuthorization() },
+      customHeader
+    );
+  }
 }

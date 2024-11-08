@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 
 interface MessageInputProps {
-  onSend: (message: string) => void;
+  onSend: (message: string, onMessageSent: () => void) => void;
 }
 
 export const MessageInput: React.FC<MessageInputProps> = ({ onSend }) => {
-  const [text, setText] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSend = () => {
-    if (text.trim()) {
-      onSend(text);
-      setText("");
+    if (message.trim()) {
       setIsLoading(true);
-      setTimeout(() => setIsLoading(false), 1000);
+      onSend(message, () => setIsLoading(false));
+      setMessage("");
     }
   };
 
@@ -27,8 +26,8 @@ export const MessageInput: React.FC<MessageInputProps> = ({ onSend }) => {
     <div className="message-input">
       <input
         type="text"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
+        value={message}
+        onChange={(event) => setMessage(event.target.value)}
         onKeyPress={handleKeyPress}
         placeholder="Type your message..."
       />

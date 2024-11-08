@@ -33,11 +33,13 @@ export class MessengerGetMessagesController {
     });
 
     return {
-      messages: messages.map((message) => ({
-        message: message.message,
-        sender: message.sender,
-        createdAt: message.createdAt,
-      })),
+      messages: messages
+        .map((message) => ({
+          message: message.message,
+          sender: message.sender,
+          createdAt: message.createdAt,
+        }))
+        .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime()),
     };
   }
 }

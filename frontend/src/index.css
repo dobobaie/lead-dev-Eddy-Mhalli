@@ -1,3 +1,5 @@
+/* NOTE: can be spitted by component, or even use css framework, or sass but let's go for KISS */
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;

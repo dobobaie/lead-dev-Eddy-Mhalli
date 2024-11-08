@@ -24,15 +24,17 @@ export const Chat = () => {
       });
   }, [messengerSelected]);
 
-  const addMessage = (message: string) => {
+  const addMessage = (message: string, onMessageSent: () => void) => {
+    // NOTE: set message for user
     messages.push({
       message,
       sender: "user",
       createdAt: new Date(),
     });
     setMessages(messages);
+    onMessageSent();
 
-    // ---
+    // NOTE: set message for assistant
     const messagesCopy = [...messages];
     let messageAssistant = "";
     const messageAssistantTracking = {
@@ -40,8 +42,9 @@ export const Chat = () => {
       sender: "assistant",
       createdAt: new Date(),
     };
+    setMessages([...messages, messageAssistantTracking]);
 
-    // ---
+    // NOTE: ask assistant to reply
     messengerRepository
       .sendMessageToAssistant(messengerSelected!, { message })
       .then((reader: ReadableStreamDefaultReader<Uint8Array>) => {
@@ -50,7 +53,7 @@ export const Chat = () => {
             return;
           }
 
-          // ---
+          // NOTE: update the current assistant message
           const valueMessage = new TextDecoder().decode(value);
           messageAssistant += valueMessage;
           setMessages([

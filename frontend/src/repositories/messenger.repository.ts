@@ -7,10 +7,7 @@ export class MessengerRepository extends Repository {
   public async getMessengers(): Promise<Messenger[]> {
     const result =
       await this.getSdk().messengerGetMessengersControllerGetMessengers({
-        headers: { "x-session-id": this.getAuthorization() } as Record<
-          string,
-          string
-        >,
+        headers: this.getHeaders(),
       });
     return result.messengers;
   }
@@ -18,10 +15,7 @@ export class MessengerRepository extends Repository {
   public async newConversation(): Promise<string> {
     const result =
       await this.getSdk().messengerCreateConversationControllerCreate({
-        headers: { "x-session-id": this.getAuthorization() } as Record<
-          string,
-          string
-        >,
+        headers: this.getHeaders(),
       });
     return result.messengerId;
   }
@@ -30,12 +24,7 @@ export class MessengerRepository extends Repository {
     const result =
       await this.getSdk().messengerGetMessagesControllerGetMessages(
         { messengerId },
-        {
-          headers: { "x-session-id": this.getAuthorization() } as Record<
-            string,
-            string
-          >,
-        }
+        { headers: this.getHeaders() }
       );
     return result.messages;
   }
@@ -47,12 +36,7 @@ export class MessengerRepository extends Repository {
     const response =
       await this.getSdk().messengerSendMessageToAssistantControllerSendMessageRaw(
         { messengerId, messengerSendMessageToAssistantBodyDTO: input },
-        {
-          headers: {
-            "x-session-id": this.getAuthorization(),
-            "Content-Type": "application/json",
-          } as Record<string, string>,
-        }
+        { headers: this.getHeaders({ "Content-Type": "application/json" }) }
       );
     return response.raw.body?.getReader()!;
   }

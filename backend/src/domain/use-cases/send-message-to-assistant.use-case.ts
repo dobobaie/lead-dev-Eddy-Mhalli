@@ -38,7 +38,7 @@ export class SendMessageToAssistantUseCase {
       },
     ]);
 
-    // NOTE: prepare to persist messages after stream is terminated
+    // NOTE: prepare to persist messages after stream is finished
     const persistMessages = async (assistantMessage: string) => {
       await this.persistMessage(
         createMessage({
@@ -56,7 +56,7 @@ export class SendMessageToAssistantUseCase {
       );
     };
 
-    // NOTE: we're waiting the stream is finished to close the stream
+    // NOTE: waiting the stream is finished before terminate it
     let fullMessage = "";
     const transformStream = stream.pipeThrough(
       new TransformStream({
